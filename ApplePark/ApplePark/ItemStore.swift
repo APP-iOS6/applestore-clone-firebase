@@ -43,14 +43,17 @@ class ItemStore {
                 let imageURL: String = docData["imageURL"] as? String ?? ""
                 
                 
-                let pirce: Int = docData["pirce"] as? Int ?? 0
+                let price: Int = docData["pirce"] as? Int ?? 0
                 let stockQuantity: Int = docData["stockQuantity"] as? Int ?? 0
                 
                 let isAvailable: Bool = docData["isAvailable"] as? Bool ?? true
+                let item: Item = Item(name: name, category: category, price: price, description: description, stockQuantity: stockQuantity, imageURL: imageURL, color: color, isAvailable: isAvailable)
+
+                                savedItems.append(item)
                 
             }
             
-            items = savedItems
+            self.items = savedItems
             
         } catch{
             print("\(error)")
