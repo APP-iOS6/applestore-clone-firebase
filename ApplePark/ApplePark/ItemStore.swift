@@ -12,8 +12,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 
-@Observable
-class ItemStore {
+class ItemStore: ObservableObject {
     
     private var items: [Item] = []
     
@@ -89,44 +88,43 @@ class ItemStore {
             }
         }
     }
-        
-        
-        
-        
-        private func loadItems() async {
-            do{
-                let db = Firestore.firestore()
-                let snapshots = try await db.collection("Items").getDocuments()
+    
+    
+    
+    private func loadItems() async {
+        do{
+            let db = Firestore.firestore()
+            let snapshots = try await db.collection("Items").getDocuments()
+            
+            var savedItems: [Item] = []
+            
+            for document in snapshots.documents {
+                let id: String = document.documentID
                 
-                var savedItems: [Item] = []
+                let docData = document.data()
+                let name: String = docData["name"] as? String ?? ""
+                let category: String = docData["category"] as? String ?? ""
+                let color: String = docData["color"] as? String ?? ""
+                let description: String = docData["description"] as? String ?? ""
+                let imageURL: String = docData["imageURL"] as? String ?? ""
                 
-                for document in snapshots.documents {
-                    let id: String = document.documentID
-                    
-                    let docData = document.data()
-                    let name: String = docData["name"] as? String ?? ""
-                    let category: String = docData["category"] as? String ?? ""
-                    let color: String = docData["color"] as? String ?? ""
-                    let description: String = docData["description"] as? String ?? ""
-                    let imageURL: String = docData["imageURL"] as? String ?? ""
-                    
-                    
-                    let price: Int = docData["price"] as? Int ?? 0
-                    let stockQuantity: Int = docData["stockQuantity"] as? Int ?? 0
-                    
-                    let isAvailable: Bool = docData["isAvailable"] as? Bool ?? true
-                    let item: Item = Item(itemId: id,name: name, category: category, price: price, description: description, stockQuantity: stockQuantity, imageURL: imageURL, color: color, isAvailable: isAvailable)
-                    
-                    savedItems.append(item)
-                }
                 
-                self.items = savedItems
+                let price: Int = docData["price"] as? Int ?? 0
+                let stockQuantity: Int = docData["stockQuantity"] as? Int ?? 0
                 
-            } catch{
-                print("\(error)")
+                let isAvailable: Bool = docData["isAvailable"] as? Bool ?? true
+                let item: Item = Item(itemId: id,name: name, category: category, price: price, description: description, stockQuantity: stockQuantity, imageURL: imageURL, color: color, isAvailable: isAvailable)
+                
+                savedItems.append(item)
             }
-        }
-        func fetchIItems() async -> (){
-            await loadItems()
+            
+            self.items = savedItems
+            
+        } catch{
+            print("\(error)")
         }
     }
+    func fetchIItems() async -> (){
+        await loadItems()
+    }
+}

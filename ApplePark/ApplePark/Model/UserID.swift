@@ -11,7 +11,6 @@ import Foundation
 struct UserID: Identifiable {
     var id: UUID = UUID() // 고객 아이디
     
-    var item: [Item]
     var order: [Order]
     var customer: [Customer]
 }

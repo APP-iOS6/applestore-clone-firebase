@@ -42,7 +42,7 @@ class AuthStore: ObservableObject {
     @Published var photoURL: URL?
     
     init() {
-        registerAuthStateHandler()
+//        registerAuthStateHandler()
         
         $flow
             .combineLatest($email, $password, $confirmPassword)
@@ -156,6 +156,7 @@ extension AuthStore {
               let window = windowScene.windows.first,
               let rootViewController = window.rootViewController else {
             print("There is no root view controller!")
+        
             return false
         }
         
@@ -172,6 +173,7 @@ extension AuthStore {
             let result = try await Auth.auth().signIn(with: credential)
             let firebaseUser = result.user
             print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
+            authenticationState = .authenticated
             return true
         }
         catch {

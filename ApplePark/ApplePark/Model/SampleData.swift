@@ -175,4 +175,4 @@ let sampleCustomers = [
 
 
 // 샘플 UserID 데이터 생성
-let sampleUserID = UserID(id: UUID(), item: sampleItems, order: sampleOrders, customer: sampleCustomers)
+let sampleUserID = UserID(id: UUID(), order: sampleOrders, customer: sampleCustomers)
