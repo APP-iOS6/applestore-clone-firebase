@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductAddView: View {
     let gridItem = Array(repeating: GridItem(.flexible()), count: 2)
-    @EnvironmentObject var authManager: AuthStore
+    @EnvironmentObject var authManager: AuthManager
     var body: some View {
         NavigationStack {
             VStack {

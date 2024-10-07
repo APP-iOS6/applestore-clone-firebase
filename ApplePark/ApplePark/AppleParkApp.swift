@@ -19,7 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct AppleParkApp: App {
-    @StateObject private var authStore = AuthStore()
+    @StateObject private var authStore = AuthManager()
     @StateObject private var itemStore = ItemStore()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {

@@ -12,7 +12,7 @@ struct LoginView: View {
     @State private var pw: String = ""
     @State private var isPresented: Bool = false
     @State private var authState: AuthenticationState = .unauthenticated
-    @EnvironmentObject var authManager: AuthStore
+    @EnvironmentObject var authManager: AuthManager
     var body: some View {
         NavigationStack {
             if isPresented {
@@ -57,5 +57,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
-        .environmentObject(AuthStore())
+        .environmentObject(AuthManager())
 }

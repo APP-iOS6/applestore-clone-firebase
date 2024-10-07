@@ -25,7 +25,7 @@ enum AuthenticationFlow {
 }
 
 @MainActor
-class AuthStore: ObservableObject {
+class AuthManager: ObservableObject {
     @Published var name: String = "unkown"
     
     @Published var email: String = ""
@@ -89,7 +89,7 @@ class AuthStore: ObservableObject {
     }
 }
 
-extension AuthStore {
+extension AuthManager {
     func signInWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do {
@@ -144,7 +144,7 @@ enum AuthenticationError: Error {
     case tokenError(message: String)
 }
 
-extension AuthStore {
+extension AuthManager {
     func signInWithGoogle() async -> Bool {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             fatalError("No client ID found in Firebase configuration")
