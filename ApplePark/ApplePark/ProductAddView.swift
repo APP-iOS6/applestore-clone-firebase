@@ -10,6 +10,9 @@ import SwiftUI
 struct ProductAddView: View {
     let gridItem = Array(repeating: GridItem(.flexible()), count: 2)
     @EnvironmentObject var authManager: AuthManager
+    
+//    @EnvironmentObject var itemStore: ItemStore
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -35,7 +38,15 @@ struct ProductAddView: View {
                 }
                 ToolbarItem (placement: .topBarTrailing) {
                     Button {
-                        authManager.signOut()
+                        //                        authManager.signOut()
+                        authManager.itemStore?.addItem(Item(name: "name데이터",
+                                               category: "name데이터",
+                                               price: 100,
+                                               description: "name데이터",
+                                               stockQuantity: 1200,
+                                               imageURL: "name데이터",
+                                               color: "name데이터",
+                                               isAvailable: true))
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -48,3 +59,4 @@ struct ProductAddView: View {
 #Preview {
     ProductAddView()
 }
+

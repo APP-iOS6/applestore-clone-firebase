@@ -41,6 +41,8 @@ class AuthManager: ObservableObject {
     @Published var displayName: String = ""
     @Published var photoURL: URL?
     
+    @Published var itemStore: ItemStore?
+    
     init() {
 //        registerAuthStateHandler()
         
@@ -173,6 +175,9 @@ extension AuthManager {
             let result = try await Auth.auth().signIn(with: credential)
             let firebaseUser = result.user
             print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
+            
+            itemStore = ItemStore(userID: firebaseUser.uid)
+            
             authenticationState = .authenticated
             return true
         }

@@ -15,13 +15,20 @@ import FirebaseFirestore
 class ItemStore: ObservableObject {
     
     private var items: [Item] = []
+    private var userID: String?
     
     init() {
-        items = [
-            Item(name: "iPhone 16 pro", category: "iPhone", price: 155000, description: "티타늄 디자인, 더 널찍해진 15.9cm Super Retina XDR 디스플레이, 각주 1 견고한 최신 세대 Ceramic Shield, 동작 버튼, USB 3 속도의 USB-C 각주 2", stockQuantity: 100, imageURL:
-                    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone16pro-digitalmat-gallery-1-202409?wid=728&hei=666&fmt=p-jpg&qlt=95&.v=1723843057491", color:
-                    "데저트 티타늄", isAvailable: true)
-        ]
+        self.userID = nil // 기본값으로 nil
+    }
+    
+    init(userID: String) {
+        self.userID = userID
+        //        items = [
+        //            Item(name: "iPhone 16 pro", category: "iPhone", price: 155000, description: "티타늄 디자인, 더 널찍해진 15.9cm Super Retina XDR 디스플레이, 각주 1 견고한 최신 세대 Ceramic Shield, 동작 버튼, USB 3 속도의 USB-C 각주 2", stockQuantity: 100, imageURL:
+        //                    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone16pro-digitalmat-gallery-1-202409?wid=728&hei=666&fmt=p-jpg&qlt=95&.v=1723843057491", color:
+        //                    "데저트 티타늄", isAvailable: true)
+        //        ]
+        print("유저 아이디 : \(userID)")
     }
     func addItem(_ item: Item){
         items.append(item)
@@ -29,7 +36,11 @@ class ItemStore: ObservableObject {
         Task {
             do {
                 let db = Firestore.firestore()
-                try await db.collection("Items").document("\(item.itemId)").setData([
+                
+                // userID 안찍힘..
+                print("userID: \(userID), itemId: \(item.itemId)")
+                
+                try await db.collection("User").document(userID ?? "nil").collection("Item").document("\(item.itemId)").setData([
                     "name": item.name,
                     "category": item.category,
                     "color": item.color,
@@ -94,7 +105,7 @@ class ItemStore: ObservableObject {
     private func loadItems() async {
         do{
             let db = Firestore.firestore()
-            let snapshots = try await db.collection("Items").getDocuments()
+            let snapshots = try await db.collection("Users").document(userID ?? "nil").collection("Items").getDocuments()
             
             var savedItems: [Item] = []
             
@@ -128,3 +139,4 @@ class ItemStore: ObservableObject {
         await loadItems()
     }
 }
+
