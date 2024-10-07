@@ -13,6 +13,7 @@
 		CE18389B2CB3716600D4976B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE18389A2CB3716600D4976B /* Assets.xcassets */; };
 		CE18389E2CB3716600D4976B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE18389D2CB3716600D4976B /* Preview Assets.xcassets */; };
 		EA9CE4B72CB399B300ED5EE7 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE4B62CB399B300ED5EE7 /* Item.swift */; };
+		EA9CE4F52CB3A99600ED5EE7 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE4F42CB3A99600ED5EE7 /* Order.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		CE18389A2CB3716600D4976B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE18389D2CB3716600D4976B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EA9CE4B62CB399B300ED5EE7 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		EA9CE4F42CB3A99600ED5EE7 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				EA9CE4B62CB399B300ED5EE7 /* Item.swift */,
+				EA9CE4F42CB3A99600ED5EE7 /* Order.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				2C373DCB2CB3A984009481DE /* ProductAddView.swift in Sources */,
 				CE1838992CB3716500D4976B /* ContentView.swift in Sources */,
 				EA9CE4B72CB399B300ED5EE7 /* Item.swift in Sources */,
+				EA9CE4F52CB3A99600ED5EE7 /* Order.swift in Sources */,
 				CE1838972CB3716500D4976B /* AppleParkApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
