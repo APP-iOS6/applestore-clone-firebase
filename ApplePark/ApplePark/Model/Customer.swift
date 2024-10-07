@@ -7,6 +7,7 @@
 
 import Foundation
 
+// 고객 관리
 struct Customer: Codable {
     var nickname: String               // 닉네임
     var email: String                  // 이메일

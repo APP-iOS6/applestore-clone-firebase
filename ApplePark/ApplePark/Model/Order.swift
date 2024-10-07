@@ -7,6 +7,7 @@
 
 import Foundation
 
+// 주문 관리
 struct Order: Codable {
     var trackingNumber: UUID           // 배송추적 번호
     var orderDate: Date                // 주문 날짜

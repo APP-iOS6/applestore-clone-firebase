@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+// 제품 관리
 struct Item: Codable {
     var itemId: UUID        // 상품ID
     var name: String        // 상품명
