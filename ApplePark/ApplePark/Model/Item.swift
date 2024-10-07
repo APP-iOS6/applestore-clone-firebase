@@ -9,6 +9,7 @@ import Foundation
 
 
 struct Item: Codable {
+    var itemId: UUID        // 상품ID
     var name: String        // 상품명
     var category: String    // 카테고리
     var price: Int          // 가격
