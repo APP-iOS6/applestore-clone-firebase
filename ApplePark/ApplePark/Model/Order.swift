@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Order: Identifiable, Codable {
-    var id: UUID = UUID()
+struct Order: Codable {
     var trackingNumber: UUID           // 배송추적 번호
     var customerID: UUID               // 고객ID
     var orderDate: Date                // 주문 날짜

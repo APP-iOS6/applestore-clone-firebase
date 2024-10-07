@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Item: Identifiable, Codable {
-    var id: UUID = UUID()
+
+struct Item: Codable {
     var name: String        // 상품명
     var category: String    // 카테고리
     var price: Int          // 가격
