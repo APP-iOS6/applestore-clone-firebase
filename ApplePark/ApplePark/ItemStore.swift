@@ -23,6 +23,7 @@ class ItemStore: ObservableObject {
                     "데저트 티타늄", isAvailable: true)
         ]
     }
+    
     func addItem(_ item: Item){
         items.append(item)
         
@@ -89,8 +90,6 @@ class ItemStore: ObservableObject {
         }
     }
     
-    
-    
     private func loadItems() async {
         do{
             let db = Firestore.firestore()
@@ -127,4 +126,11 @@ class ItemStore: ObservableObject {
     func fetchIItems() async -> (){
         await loadItems()
     }
+    
+    //MARK: 카테고리 필터
+    func filterByCategory(items: [Item], category: String) -> [Item] {
+        return items.filter { $0.category == category }
+    }
 }
+
+

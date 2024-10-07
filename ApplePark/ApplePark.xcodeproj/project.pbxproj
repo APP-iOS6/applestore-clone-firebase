@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C373DCB2CB3A984009481DE /* ProductAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C373DCA2CB3A984009481DE /* ProductAddView.swift */; };
 		2C373DCD2CB3AD54009481DE /* UserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C373DCC2CB3AD54009481DE /* UserID.swift */; };
-		2C373DD02CB3B3F5009481DE /* Item Manager View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C373DCE2CB3B3F5009481DE /* Item Manager View.swift */; };
+		2C373DD02CB3B3F5009481DE /* ItemManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C373DCE2CB3B3F5009481DE /* ItemManagerView.swift */; };
 		2C373DD12CB3B3F5009481DE /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C373DCF2CB3B3F5009481DE /* ItemStore.swift */; };
 		2C373DD42CB3B471009481DE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2C373DD32CB3B471009481DE /* FirebaseAuth */; };
 		2C373DD62CB3B471009481DE /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 2C373DD52CB3B471009481DE /* FirebaseAuthCombine-Community */; };
@@ -33,7 +33,7 @@
 /* Begin PBXFileReference section */
 		2C373DCA2CB3A984009481DE /* ProductAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductAddView.swift; sourceTree = "<group>"; };
 		2C373DCC2CB3AD54009481DE /* UserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserID.swift; sourceTree = "<group>"; };
-		2C373DCE2CB3B3F5009481DE /* Item Manager View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item Manager View.swift"; sourceTree = "<group>"; };
+		2C373DCE2CB3B3F5009481DE /* ItemManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemManagerView.swift; sourceTree = "<group>"; };
 		2C373DCF2CB3B3F5009481DE /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
 		2C373DDD2CB3B4CB009481DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C373DE42CB3C75F009481DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 				CE1838962CB3716500D4976B /* AppleParkApp.swift */,
 				EA9CE5262CB3C2BA00ED5EE7 /* Auth */,
 				EA9CE4B52CB3999D00ED5EE7 /* Model */,
-				2C373DCE2CB3B3F5009481DE /* Item Manager View.swift */,
+				2C373DCE2CB3B3F5009481DE /* ItemManagerView.swift */,
 				2C373DCF2CB3B3F5009481DE /* ItemStore.swift */,
 				CE1838982CB3716500D4976B /* LoginView.swift */,
 				2C373DCA2CB3A984009481DE /* ProductAddView.swift */,
@@ -210,7 +210,7 @@
 				CE1838992CB3716500D4976B /* LoginView.swift in Sources */,
 				EA9CE5282CB3C2CA00ED5EE7 /* AuthManager.swift in Sources */,
 				EA9CE4B72CB399B300ED5EE7 /* Item.swift in Sources */,
-				2C373DD02CB3B3F5009481DE /* Item Manager View.swift in Sources */,
+				2C373DD02CB3B3F5009481DE /* ItemManagerView.swift in Sources */,
 				2C373DD12CB3B3F5009481DE /* ItemStore.swift in Sources */,
 				EA9CE4F52CB3A99600ED5EE7 /* Order.swift in Sources */,
 				CE1838972CB3716500D4976B /* AppleParkApp.swift in Sources */,
