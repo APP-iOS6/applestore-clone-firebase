@@ -12,7 +12,7 @@ struct Customer: Codable {
     var nickname: String               // 닉네임
     var email: String                  // 이메일
     var registrationDate: Date         // 가입날짜
-    var recentlyViewedProducts: [UUID] // 최근 본 제품(상품 ID 리스트)
+    var recentlyViewedProducts: [String] // 최근 본 제품(상품 ID 리스트)
     
     // 가입 날짜 Formatter 생성
     var formattedRegistration: String {

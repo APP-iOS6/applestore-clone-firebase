@@ -15,7 +15,7 @@ func sampleDate(daysAgo: Int) -> Date {
 
 // 샘플 상품 데이터 생성
 let sampleItems = [
-    Item(itemId: UUID(),
+    Item(itemId: UUID().uuidString,
          name: "아이폰 14",
          category: "전자제품",
          price: 1200000,
@@ -25,7 +25,7 @@ let sampleItems = [
          color: "블랙",
          isAvailable: true),
     
-    Item(itemId: UUID(),
+    Item(itemId: UUID().uuidString,
          name: "갤럭시 S23",
          category: "전자제품",
          price: 1100000,
@@ -35,7 +35,7 @@ let sampleItems = [
          color: "화이트",
          isAvailable: true),
     
-    Item(itemId: UUID(),
+    Item(itemId: UUID().uuidString,
          name: "LG OLED TV",
          category: "가전제품",
          price: 2500000,
@@ -45,7 +45,7 @@ let sampleItems = [
          color: "검정",
          isAvailable: true),
     
-    Item(itemId: UUID(),
+    Item(itemId: UUID().uuidString,
          name: "다이슨 무선 청소기",
          category: "가전제품",
          price: 900000,
@@ -55,7 +55,7 @@ let sampleItems = [
          color: "실버",
          isAvailable: true),
     
-    Item(itemId: UUID(),
+    Item(itemId: UUID().uuidString,
          name: "삼성 노트북",
          category: "전자제품",
          price: 1500000,
@@ -68,7 +68,7 @@ let sampleItems = [
 
 // 샘플 주문 데이터 생성
 let sampleOrders = [
-    Order(trackingNumber: UUID(),
+    Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 5),
           nickname: "john_doe",
           shippingAddress: "서울특별시 강남구 테헤란로 123",
@@ -83,7 +83,7 @@ let sampleOrders = [
           bankName: "국민은행",
           accountNumber: "123-456-789"),
     
-    Order(trackingNumber: UUID(),
+    Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 10),
           nickname: "jane_doe",
           shippingAddress: "부산광역시 해운대구 우동 456",
@@ -98,7 +98,7 @@ let sampleOrders = [
           bankName: "우리은행",
           accountNumber: "987-654-321"),
     
-    Order(trackingNumber: UUID(),
+    Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 15),
           nickname: "alice",
           shippingAddress: "인천광역시 남동구 구월동 789",
@@ -113,7 +113,7 @@ let sampleOrders = [
           bankName: "신한은행",
           accountNumber: "123-987-456"),
     
-    Order(trackingNumber: UUID(),
+    Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 20),
           nickname: "bob",
           shippingAddress: "대전광역시 유성구 봉명동 234",
@@ -128,7 +128,7 @@ let sampleOrders = [
           bankName: "KDB산업은행",
           accountNumber: "321-654-987"),
     
-    Order(trackingNumber: UUID(),
+    Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 25),
           nickname: "charlie",
           shippingAddress: "광주광역시 서구 화정동 123",

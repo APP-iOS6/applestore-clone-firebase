@@ -24,44 +24,109 @@ class ItemStore {
                     "데저트 티타늄", isAvailable: true)
         ]
     }
-    
-    private func loadItems() async{
-        do{
-            let db = Firestore.firestore()
-            let snapshots = try await db.collection("Items").getDocuments()
-            
-            var savedItems: [Item] = []
-            
-            for document in snapshots.documents {
-                let id: String = document.documentID
+    func addItem(_ item: Item){
+        items.append(item)
+        
+        Task {
+            do {
+                let db = Firestore.firestore()
+                try await db.collection("Items").document("\(item.itemId)").setData([
+                    "name": item.name,
+                    "category": item.category,
+                    "color": item.color,
+                    "description": item.description,
+                    "imageURL": item.imageURL,
+                    
+                    "price": item.price,
+                    "stockQuantity": item.stockQuantity,
+                    
+                    "isAvailable": item.isAvailable,
+                ])
                 
-                let docData = document.data()
-                let name: String = docData["name"] as? String ?? ""
-                let category: String = docData["category"] as? String ?? ""
-                let color: String = docData["color"] as? String ?? ""
-                let description: String = docData["description"] as? String ?? ""
-                let imageURL: String = docData["imageURL"] as? String ?? ""
-                
-                
-                let price: Int = docData["pirce"] as? Int ?? 0
-                let stockQuantity: Int = docData["stockQuantity"] as? Int ?? 0
-                
-                let isAvailable: Bool = docData["isAvailable"] as? Bool ?? true
-                let item: Item = Item(name: name, category: category, price: price, description: description, stockQuantity: stockQuantity, imageURL: imageURL, color: color, isAvailable: isAvailable)
-
-                                savedItems.append(item)
-                
+                print("Document successfully written!")
+            } catch {
+                print("Error writing document: \(error)")
             }
-            
-            self.items = savedItems
-            
-        } catch{
-            print("\(error)")
         }
     }
-    func fetchIItems() async -> (){
-        await loadItems()
+    
+    func updateItem(_ item: Item) {
+        Task {
+            do {
+                let db = Firestore.firestore()
+                try await db.collection("Items").document("\(item.itemId)").updateData([
+                    "name": item.name,
+                    "category": item.category,
+                    "color": item.color,
+                    "description": item.description,
+                    "imageURL": item.imageURL,
+                    
+                    "price": item.price,
+                    "stockQuantity": item.stockQuantity,
+                    
+                    "isAvailable": item.isAvailable,
+                ])
+                
+                
+                print("Document successfully written!")
+            } catch {
+                print("Error writing document: \(error)")
+            }
+        }
+        for (index, updateItem) in items.enumerated() {
+            if updateItem.itemId == item.itemId {
+                items[index].name = item.name
+                items[index].category = item.category
+                items[index].color = item.color
+                items[index].description = item.description
+                items[index].imageURL = item.imageURL
+                
+                items[index].price = item.price
+                items[index].stockQuantity = item.stockQuantity
+                
+                items[index].isAvailable = item.isAvailable
+                
+            }
+        }
     }
-    
-    
-}
+        
+        
+        
+        
+        private func loadItems() async {
+            do{
+                let db = Firestore.firestore()
+                let snapshots = try await db.collection("Items").getDocuments()
+                
+                var savedItems: [Item] = []
+                
+                for document in snapshots.documents {
+                    let id: String = document.documentID
+                    
+                    let docData = document.data()
+                    let name: String = docData["name"] as? String ?? ""
+                    let category: String = docData["category"] as? String ?? ""
+                    let color: String = docData["color"] as? String ?? ""
+                    let description: String = docData["description"] as? String ?? ""
+                    let imageURL: String = docData["imageURL"] as? String ?? ""
+                    
+                    
+                    let price: Int = docData["price"] as? Int ?? 0
+                    let stockQuantity: Int = docData["stockQuantity"] as? Int ?? 0
+                    
+                    let isAvailable: Bool = docData["isAvailable"] as? Bool ?? true
+                    let item: Item = Item(itemId: id,name: name, category: category, price: price, description: description, stockQuantity: stockQuantity, imageURL: imageURL, color: color, isAvailable: isAvailable)
+                    
+                    savedItems.append(item)
+                }
+                
+                self.items = savedItems
+                
+            } catch{
+                print("\(error)")
+            }
+        }
+        func fetchIItems() async -> (){
+            await loadItems()
+        }
+    }
