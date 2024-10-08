@@ -146,27 +146,27 @@ let sampleOrders = [
 
 // 샘플 고객 데이터 생성
 let sampleCustomers = [
-    Customer(nickname: "john_doe",
+    ProfileInfo(nickname: "john_doe",
              email: "john@example.com",
              registrationDate: sampleDate(daysAgo: 30),
              recentlyViewedProducts: [sampleItems[0].itemId, sampleItems[1].itemId]),
     
-    Customer(nickname: "jane_doe",
+    ProfileInfo(nickname: "jane_doe",
              email: "jane@example.com",
              registrationDate: sampleDate(daysAgo: 20),
              recentlyViewedProducts: [sampleItems[1].itemId, sampleItems[2].itemId]),
     
-    Customer(nickname: "alice",
+    ProfileInfo(nickname: "alice",
              email: "alice@example.com",
              registrationDate: sampleDate(daysAgo: 15),
              recentlyViewedProducts: [sampleItems[2].itemId, sampleItems[3].itemId]),
     
-    Customer(nickname: "bob",
+    ProfileInfo(nickname: "bob",
              email: "bob@example.com",
              registrationDate: sampleDate(daysAgo: 10),
              recentlyViewedProducts: [sampleItems[3].itemId, sampleItems[4].itemId]),
     
-    Customer(nickname: "charlie",
+    ProfileInfo(nickname: "charlie",
              email: "charlie@example.com",
              registrationDate: sampleDate(daysAgo: 5),
              recentlyViewedProducts: [sampleItems[4].itemId, sampleItems[0].itemId])
@@ -175,4 +175,4 @@ let sampleCustomers = [
 
 
 // 샘플 UserID 데이터 생성
-let sampleUserID = UserID(id: UUID(), order: sampleOrders, customer: sampleCustomers)
+let sampleUserID = UserID(id: UUID(), order: sampleOrders, profileInfo: sampleCustomers)
