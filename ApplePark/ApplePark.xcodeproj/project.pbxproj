@@ -20,6 +20,7 @@
 		2C373DE12CB3C306009481DE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2C373DE02CB3C306009481DE /* GoogleSignIn */; };
 		2C373DE32CB3C306009481DE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C373DE22CB3C306009481DE /* GoogleSignInSwift */; };
 		2C63F4A62CB4C4E300E242A4 /* ItemStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63F4A52CB4C4E300E242A4 /* ItemStoreType.swift */; };
+		77ED43542CB4DC5700987821 /* ProductEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ED43532CB4DC5700987821 /* ProductEditView.swift */; };
 		CE1838972CB3716500D4976B /* AppleParkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1838962CB3716500D4976B /* AppleParkApp.swift */; };
 		CE1838992CB3716500D4976B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1838982CB3716500D4976B /* LoginView.swift */; };
 		CE18389B2CB3716600D4976B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE18389A2CB3716600D4976B /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		2C373DDD2CB3B4CB009481DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C373DE42CB3C75F009481DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2C63F4A52CB4C4E300E242A4 /* ItemStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStoreType.swift; sourceTree = "<group>"; };
+		77ED43532CB4DC5700987821 /* ProductEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditView.swift; sourceTree = "<group>"; };
 		CE1838932CB3716500D4976B /* ApplePark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplePark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1838962CB3716500D4976B /* AppleParkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleParkApp.swift; sourceTree = "<group>"; };
 		CE1838982CB3716500D4976B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				2C63F4A52CB4C4E300E242A4 /* ItemStoreType.swift */,
 				CE1838982CB3716500D4976B /* LoginView.swift */,
 				2C373DCA2CB3A984009481DE /* ProductAddView.swift */,
+				77ED43532CB4DC5700987821 /* ProductEditView.swift */,
 				CE18389A2CB3716600D4976B /* Assets.xcassets */,
 				CE18389C2CB3716600D4976B /* Preview Content */,
 			);
@@ -212,6 +215,7 @@
 				2C373DCD2CB3AD54009481DE /* UserID.swift in Sources */,
 				CE1838992CB3716500D4976B /* LoginView.swift in Sources */,
 				2C63F4A62CB4C4E300E242A4 /* ItemStoreType.swift in Sources */,
+				77ED43542CB4DC5700987821 /* ProductEditView.swift in Sources */,
 				EA9CE5282CB3C2CA00ED5EE7 /* AuthManager.swift in Sources */,
 				EA9CE4B72CB399B300ED5EE7 /* Item.swift in Sources */,
 				2C373DD02CB3B3F5009481DE /* Item Manager View.swift in Sources */,

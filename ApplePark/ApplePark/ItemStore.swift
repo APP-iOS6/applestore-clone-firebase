@@ -46,25 +46,25 @@ class ItemStore: ObservableObject, ItemStoreType {
     }
     
     func updateProducts(_ item: Item) async {
-            do {
-                let db = Firestore.firestore()
-                try await db.collection("Items").document("\(item.itemId)").updateData([
-                    "name": item.name,
-                    "category": item.category,
-                    "color": item.color,
-                    "description": item.description,
-                    "imageURL": item.imageURL,
-                    
-                    "price": item.price,
-                    "stockQuantity": item.stockQuantity,
-                    
-                    "isAvailable": item.isAvailable,
-                ])
+        do {
+            let db = Firestore.firestore()
+            try await db.collection("Item").document("\(item.itemId)").setData([
+                "name": item.name,
+                "category": item.category,
+                "color": item.color,
+                "description": item.description,
+                "imageURL": item.imageURL,
                 
+                "price": item.price,
+                "stockQuantity": item.stockQuantity,
                 
-                print("Document successfully written!")
-            } catch {
-                print("Error writing document: \(error)")
+                "isAvailable": item.isAvailable,
+            ])
+            
+            
+            print("Document successfully written!")
+        } catch {
+            print("Error writing document: \(error)")
         }
         for (index, updateItem) in items.enumerated() {
             if updateItem.itemId == item.itemId {
@@ -117,7 +117,27 @@ class ItemStore: ObservableObject, ItemStoreType {
             print("\(error)")
         }
     }
-    func deleteProduct() async {
+    // MARK: 상품 삭제
+    func deleteProduct(_ item: Item, userID: String) async {
+        do {
+            let db = Firestore.firestore()
+            
+            try await db.collection("User").document(userID).collection("Item").document("\(item.itemId)").delete()
+            // 컬렉션에 있는 USER 안에 Item 안에 itemId를 삭제
+            print("Document successfully removed!")
+            
+            
+            if let index = items.firstIndex(where: { $0.itemId == item.itemId }) {
+                items.remove(at: index)
+            }
+        } catch {
+            print("Error deleting document: \(error)")
+        }
+    }
+    
+    //MARK: 상품 카테고리 필터
+    func filterByCategory(items: [Item], category: String) {
+        self.items = items.filter { $0.category == category }
     }
 }
 
