@@ -12,7 +12,7 @@ struct UserID: Identifiable {
     var id: UUID = UUID() // 고객 아이디
     
     var order: [Order]
-    var customer: [Customer]
+    var profileInfo: ProfileInfo
 }
 
 
