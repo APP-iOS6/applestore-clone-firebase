@@ -19,29 +19,29 @@ class ItemStore: ObservableObject {
     func addItem(_ item: Item, userID: String) async {
         items.append(item)
         
-            do {
-                let db = Firestore.firestore()
+        do {
+            let db = Firestore.firestore()
+            
+            // userID 찍힘..
+            print("userID: \(userID), itemId: \(item.itemId)")
+            
+            try await db.collection("User").document("\(userID)").collection("Item").document("\(item.itemId)").setData([
+                "name": item.name,
+                "category": item.category,
+                "color": item.color,
+                "description": item.description,
+                "imageURL": item.imageURL,
                 
-                // userID 찍힘..
-                print("userID: \(userID), itemId: \(item.itemId)")
+                "price": item.price,
+                "stockQuantity": item.stockQuantity,
                 
-                try await db.collection("User").document("\(userID)").collection("Item").document("\(item.itemId)").setData([
-                    "name": item.name,
-                    "category": item.category,
-                    "color": item.color,
-                    "description": item.description,
-                    "imageURL": item.imageURL,
-                    
-                    "price": item.price,
-                    "stockQuantity": item.stockQuantity,
-                    
-                    "isAvailable": item.isAvailable,
-                ])
-                
-                print("Document successfully written!")
-            } catch {
-                print("Error writing document: \(error)")
-            }
+                "isAvailable": item.isAvailable,
+            ])
+            
+            print("Document successfully written!")
+        } catch {
+            print("Error writing document: \(error)")
+        }
     }
     
     func updateItem(_ item: Item) {
@@ -83,7 +83,7 @@ class ItemStore: ObservableObject {
             }
         }
     }
-     func loadItems(userID: String) async {
+    func loadItems(userID: String) async {
         do{
             let db = Firestore.firestore()
             let snapshots = try await db.collection("User").document(userID).collection("Item").getDocuments()
@@ -114,11 +114,16 @@ class ItemStore: ObservableObject {
             
             self.items = savedItems
             print("items: \(self.items)")
-
+            
         } catch{
             print("\(error)")
         }
+        
+        //MARK: 카테고리 필터
+        func filterByCategory(items: [Item], category: String) -> [Item] {
+            return items.filter { $0.category == category }
+        }
     }
 }
-    
+
 
