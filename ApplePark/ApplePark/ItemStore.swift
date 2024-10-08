@@ -134,9 +134,14 @@ class ItemStore: ObservableObject, ItemStoreType {
         }
     }
     
-    //MARK: 상품 카테고리 필터
-    func filterByCategory(items: [Item], category: String) {
-        self.items = items.filter { $0.category == category }
+    func filterByCategory(category: String) {
+        if category == "전체" {
+            Task {
+                await loadProducts()
+            }
+        } else {
+            self.items = self.items.filter { $0.category == category }
+        }
     }
 }
 
