@@ -14,27 +14,22 @@ struct ProductAddView: View {
     
     var body: some View {
         NavigationStack {
-            if itemStore.items.isEmpty {
-                ProgressView()
+            VStack {
+                ScrollView {
+                    LazyVGrid(columns: gridItem ) {
+                        ForEach(itemStore.items, id: \.itemId) { item in
+                            Text("\(item.name)")
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 300)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.orange.gradient)
+                                )
+                        }
+                    }
                     .onAppear {
                         Task {
                             await itemStore.loadItems(userID: authManager.userID)
-                        }
-                    }
-            } else {
-                VStack {
-                    ScrollView {
-                        LazyVGrid(columns: gridItem ) {
-                            ForEach(itemStore.items, id: \.itemId) { item in
-                                Text("\(item.name)")
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 300)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(.orange.gradient)
-                                    )
-                            }
-                           
                         }
                     }
                 }
