@@ -14,8 +14,7 @@ struct ProductAddView: View {
     @State private var isLogout: Bool = false
     @State private var isShowEditSheet: Bool = false
     @State private var itemDetail: Item? // 삭제할 아이템
-    @State private var isShowDeleteAlert: Bool = false  // 알림창 상태 관리
-    
+    @State private var isShowDeleteAlert: Bool = false // 알림창 상태 관리
     
     @State private var selectedItem: Item = Item(name: "name데이터",
                                                  category: "name데이터",
@@ -41,7 +40,7 @@ struct ProductAddView: View {
                                     Task {
                                         await itemStore.loadProducts()
                                     }
-                                }, label: {
+                                }) {
                                     Text("\(item.name)")
                                         .frame(maxWidth: .infinity)
                                         .frame(height: 300)
@@ -49,11 +48,17 @@ struct ProductAddView: View {
                                             RoundedRectangle(cornerRadius: 10)
                                                 .fill(itemDetail?.itemId == item.itemId ? Color.orange.opacity(0.5) : Color.orange)
                                         )
-                                        .onTapGesture {
-                                            itemDetail = item // 선택한 Item을 itemDetail에 저장
-                                            print("선택한 아이템Id: \(item.itemId)") // 선택한 아이템 아이디 확인
-                                        }
-                                })
+                                        .overlay(
+                                            Button(action: {
+                                                itemDetail = item
+                                                isShowDeleteAlert.toggle()
+                                                print("선택한 아이템Id: \(item.itemId)")
+                                            }) {
+                                                Image(systemName: "trash")
+                                            }
+                                            .padding(), alignment: .topTrailing
+                                        )
+                                }
                             }
                         }
                         .sheet(isPresented: $isShowEditSheet) {
@@ -68,15 +73,6 @@ struct ProductAddView: View {
                     .padding(.horizontal, 20)
                     .navigationTitle("Product Add View")
                     .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Button {
-                                isShowDeleteAlert.toggle()
-                            } label: {
-                                Image(systemName: "trash")
-                            }
-                            .disabled(itemDetail == nil) //선택한 아이템이 없으면 버튼 활성화 X
-                        }
-                        
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
                                 Task {
@@ -105,7 +101,9 @@ struct ProductAddView: View {
                                     itemDetail = nil // 선택한 아이템 초기화
                                 }
                             }
-                        }, secondaryButton: .cancel(Text("취소")))
+                        }, secondaryButton: .cancel(Text("취소")) {
+                            itemDetail = nil // 취소할 때 선택한 아이템 초기화
+                        })
                     }
                 }
                 
@@ -119,8 +117,6 @@ struct ProductAddView: View {
         }
     }
 }
-
-
 
 #Preview {
     NavigationStack {
