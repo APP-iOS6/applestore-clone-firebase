@@ -11,18 +11,18 @@ import Observation
 import FirebaseCore
 import FirebaseFirestore
 
+
+@MainActor
 class ItemStore: ObservableObject {
+    @Published private(set) var items: [Item] = []
     
-    private(set) var items: [Item] = []
-    
-    func addItem(_ item: Item, userID: String){
+    func addItem(_ item: Item, userID: String) async {
         items.append(item)
         
-        Task {
             do {
                 let db = Firestore.firestore()
                 
-                // userID 안찍힘..
+                // userID 찍힘..
                 print("userID: \(userID), itemId: \(item.itemId)")
                 
                 try await db.collection("User").document("\(userID)").collection("Item").document("\(item.itemId)").setData([
@@ -42,7 +42,6 @@ class ItemStore: ObservableObject {
             } catch {
                 print("Error writing document: \(error)")
             }
-        }
     }
     
     func updateItem(_ item: Item) {
@@ -87,7 +86,7 @@ class ItemStore: ObservableObject {
      func loadItems(userID: String) async {
         do{
             let db = Firestore.firestore()
-            let snapshots = try await db.collection("User").document(userID).collection("Items").getDocuments()
+            let snapshots = try await db.collection("User").document(userID).collection("Item").getDocuments()
             print("user ID : \(userID)")
             
             var savedItems: [Item] = []
@@ -112,10 +111,10 @@ class ItemStore: ObservableObject {
                 savedItems.append(item)
                 print("save Items: \(savedItems)")
             }
-            print("items: \(self.items)")
             
             self.items = savedItems
-            
+            print("items: \(self.items)")
+
         } catch{
             print("\(error)")
         }
