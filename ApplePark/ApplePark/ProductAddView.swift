@@ -16,14 +16,17 @@ struct ProductAddView: View {
     @State private var itemDetail: Item? // 삭제할 아이템
     @State private var isShowDeleteAlert: Bool = false // 알림창 상태 관리
     
-    @State private var selectedItem: Item = Item(name: "name데이터",
-                                                 category: "name데이터",
+    @State private var selectedItem: Item = Item(name: "아이폰16pro",
+                                                 category: "iPhone",
                                                  price: 100,
-                                                 description: "name데이터",
+                                                 description: "description데이터",
                                                  stockQuantity: 1200,
-                                                 imageURL: "name데이터",
-                                                 color: "name데이터",
+                                                 imageURL: "image 데이터",
+                                                 color: "color 데이터",
                                                  isAvailable: true)
+    
+    @State private var selectedCategory: String = "All"
+    let categories = ["전체", "iPhone", "Mac", "Watch"] 
     
     var body: some View {
         NavigationStack {
@@ -31,6 +34,17 @@ struct ProductAddView: View {
                 LoginView()
             } else {
                 VStack {
+                    Picker("카테고리 선택", selection: $selectedCategory) {
+                        ForEach(categories, id: \.self) { category in
+                            Text(category).tag(category)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    .onChange(of: selectedCategory) { _, newCategory in
+                        itemStore.filterByCategory(category: newCategory)
+                    }
+                    
                     ScrollView {
                         LazyVGrid(columns: gridItem) {
                             ForEach(itemStore.items, id: \.itemId) { item in
@@ -56,7 +70,7 @@ struct ProductAddView: View {
                                             }) {
                                                 Image(systemName: "trash")
                                             }
-                                            .padding(), alignment: .topTrailing
+                                                .padding(), alignment: .topTrailing
                                         )
                                 }
                             }
