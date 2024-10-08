@@ -122,7 +122,7 @@ class ItemStore: ObservableObject, ItemStoreType {
         do {
             let db = Firestore.firestore()
             
-            try await db.collection("User").document(userID).collection("Item").document("\(item.itemId)").delete()
+            try await db.collection("Item").document("\(item.itemId)").delete()
             // 컬렉션에 있는 USER 안에 Item 안에 itemId를 삭제
             print("Document successfully removed!")
             
