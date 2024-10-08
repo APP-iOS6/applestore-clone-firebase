@@ -8,7 +8,7 @@
 import Foundation
 
 // 고객 관리
-struct ProfileInfo: Codable {
+struct Customer: Codable {
     var nickname: String               // 닉네임
     var email: String                  // 이메일
     var registrationDate: Date         // 가입날짜
