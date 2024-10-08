@@ -56,7 +56,13 @@ struct ProductAddView: View {
                                             }) {
                                                 Image(systemName: "trash")
                                             }
-                                            .padding(), alignment: .topTrailing
+                                                .padding(), alignment: .topTrailing
+                                        )
+                                        .overlay(
+                                            NavigationLink(destination: OrderView(itemId: item.itemId, productName: item.name, imageURL: item.imageURL, unitPrice: item.price)) {
+                                                Image(systemName: "paperplane.circle.fill")
+                                            }
+                                                .padding(), alignment: .topLeading
                                         )
                                 }
                             }

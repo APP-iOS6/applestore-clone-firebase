@@ -30,6 +30,8 @@
 		EA9CE4F72CB3B19400ED5EE7 /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE4F62CB3B19400ED5EE7 /* ProfileInfo.swift */; };
 		EA9CE4FB2CB3B8BA00ED5EE7 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE4FA2CB3B8BA00ED5EE7 /* SampleData.swift */; };
 		EA9CE5282CB3C2CA00ED5EE7 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE5272CB3C2CA00ED5EE7 /* AuthManager.swift */; };
+		EAC01ED12CB507FB00BA5753 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC01ECF2CB507FB00BA5753 /* OrderView.swift */; };
+		EAC01ED22CB507FB00BA5753 /* OrderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC01ECE2CB507FB00BA5753 /* OrderStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,8 @@
 		EA9CE4F62CB3B19400ED5EE7 /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 		EA9CE4FA2CB3B8BA00ED5EE7 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		EA9CE5272CB3C2CA00ED5EE7 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		EAC01ECE2CB507FB00BA5753 /* OrderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderStore.swift; sourceTree = "<group>"; };
+		EAC01ECF2CB507FB00BA5753 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 				2C373DCA2CB3A984009481DE /* ProductAddView.swift */,
 				77ED43532CB4DC5700987821 /* ProductEditView.swift */,
 				CE18389A2CB3716600D4976B /* Assets.xcassets */,
+				EAC01ED02CB507FB00BA5753 /* Order */,
 				CE18389C2CB3716600D4976B /* Preview Content */,
 			);
 			path = ApplePark;
@@ -133,6 +138,15 @@
 				EA9CE5272CB3C2CA00ED5EE7 /* AuthManager.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		EAC01ED02CB507FB00BA5753 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				EAC01ECE2CB507FB00BA5753 /* OrderStore.swift */,
+				EAC01ECF2CB507FB00BA5753 /* OrderView.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +229,8 @@
 				2C373DCD2CB3AD54009481DE /* UserID.swift in Sources */,
 				CE1838992CB3716500D4976B /* LoginView.swift in Sources */,
 				2C63F4A62CB4C4E300E242A4 /* ItemStoreType.swift in Sources */,
+				EAC01ED12CB507FB00BA5753 /* OrderView.swift in Sources */,
+				EAC01ED22CB507FB00BA5753 /* OrderStore.swift in Sources */,
 				77ED43542CB4DC5700987821 /* ProductEditView.swift in Sources */,
 				EA9CE5282CB3C2CA00ED5EE7 /* AuthManager.swift in Sources */,
 				EA9CE4B72CB399B300ED5EE7 /* Item.swift in Sources */,
