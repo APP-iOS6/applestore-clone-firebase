@@ -11,5 +11,5 @@ protocol ItemStoreType {
     func addProduct(_ item: Item, userID: String) async
     func updateProducts(_ item: Item) async
     func loadProducts(userID: String) async
-    func deleteProduct() async
+    func deleteProduct(_ item: Item, userID: String) async
 }
