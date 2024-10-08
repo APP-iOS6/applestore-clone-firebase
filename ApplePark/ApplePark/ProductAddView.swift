@@ -29,7 +29,7 @@ struct ProductAddView: View {
                     }
                     .onAppear {
                         Task {
-                            await itemStore.loadItems(userID: authManager.userID)
+                            await itemStore.loadProducts(userID: authManager.userID)
                         }
                     }
                 }
@@ -39,7 +39,7 @@ struct ProductAddView: View {
                     ToolbarItem (placement: .topBarTrailing) {
                         Button {
                             Task {
-                                await authManager.itemStore.addItem(Item(name: "name데이터",
+                                await authManager.itemStore.addProduct(Item(name: "name데이터",
                                                                          category: "name데이터",
                                                                          price: 100,
                                                                          description: "name데이터",
@@ -47,7 +47,7 @@ struct ProductAddView: View {
                                                                          imageURL: "name데이터",
                                                                          color: "name데이터",
                                                                          isAvailable: true), userID: authManager.userID)
-                                await itemStore.loadItems(userID: authManager.userID)
+                                await itemStore.loadProducts(userID: authManager.userID)
                             }
                         } label: {
                             Image(systemName: "plus")

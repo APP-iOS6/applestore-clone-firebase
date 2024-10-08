@@ -13,39 +13,39 @@ import FirebaseFirestore
 
 
 @MainActor
-class ItemStore: ObservableObject {
+class ItemStore: ObservableObject, ItemStoreType {
+    
     @Published private(set) var items: [Item] = []
     
-    func addItem(_ item: Item, userID: String) async {
+    func addProduct(_ item: Item, userID: String) async {
         items.append(item)
         
-            do {
-                let db = Firestore.firestore()
+        do {
+            let db = Firestore.firestore()
+            
+            // userID 찍힘..
+            print("userID: \(userID), itemId: \(item.itemId)")
+            
+            try await db.collection("User").document("\(userID)").collection("Item").document("\(item.itemId)").setData([
+                "name": item.name,
+                "category": item.category,
+                "color": item.color,
+                "description": item.description,
+                "imageURL": item.imageURL,
                 
-                // userID 찍힘..
-                print("userID: \(userID), itemId: \(item.itemId)")
+                "price": item.price,
+                "stockQuantity": item.stockQuantity,
                 
-                try await db.collection("User").document("\(userID)").collection("Item").document("\(item.itemId)").setData([
-                    "name": item.name,
-                    "category": item.category,
-                    "color": item.color,
-                    "description": item.description,
-                    "imageURL": item.imageURL,
-                    
-                    "price": item.price,
-                    "stockQuantity": item.stockQuantity,
-                    
-                    "isAvailable": item.isAvailable,
-                ])
-                
-                print("Document successfully written!")
-            } catch {
-                print("Error writing document: \(error)")
-            }
+                "isAvailable": item.isAvailable,
+            ])
+            
+            print("Document successfully written!")
+        } catch {
+            print("Error writing document: \(error)")
+        }
     }
     
-    func updateItem(_ item: Item) {
-        Task {
+    func updateProducts(_ item: Item) async {
             do {
                 let db = Firestore.firestore()
                 try await db.collection("Items").document("\(item.itemId)").updateData([
@@ -65,7 +65,6 @@ class ItemStore: ObservableObject {
                 print("Document successfully written!")
             } catch {
                 print("Error writing document: \(error)")
-            }
         }
         for (index, updateItem) in items.enumerated() {
             if updateItem.itemId == item.itemId {
@@ -83,7 +82,7 @@ class ItemStore: ObservableObject {
             }
         }
     }
-     func loadItems(userID: String) async {
+    func loadProducts(userID: String) async {
         do{
             let db = Firestore.firestore()
             let snapshots = try await db.collection("User").document(userID).collection("Item").getDocuments()
@@ -114,11 +113,13 @@ class ItemStore: ObservableObject {
             
             self.items = savedItems
             print("items: \(self.items)")
-
+            
         } catch{
             print("\(error)")
         }
     }
+    func deleteProduct() async {
+    }
 }
-    
+
 
