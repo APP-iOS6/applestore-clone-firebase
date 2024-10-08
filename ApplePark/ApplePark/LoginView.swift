@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var id: String = ""
-    @State private var pw: String = ""
     @State private var isPresented: Bool = false
     @State private var authState: AuthenticationState = .unauthenticated
     @EnvironmentObject var authManager: AuthManager
@@ -19,13 +17,6 @@ struct LoginView: View {
                 ProductAddView()
             }else {
                   VStack {
-                    TextField("ID: ", text: $id)
-                        .padding()
-                        .background(Color.indigo, in: RoundedRectangle(cornerRadius: 10).stroke() )
-                    
-                    TextField("PW: ", text: $pw)
-                        .padding()
-                        .background(Color.indigo, in: RoundedRectangle(cornerRadius: 10).stroke() )
                     Button {
                         Task {
                             isPresented  = await authManager.signInWithGoogle()
@@ -39,17 +30,6 @@ struct LoginView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-            }
-        }
-        .onAppear {
-            switch authState {
-            default: authState = authState
-                
-            }
-        }
-        .onChange(of: authState ){ _, newValue in
-            if newValue == .authenticated {
-                authState = newValue
             }
         }
     }
