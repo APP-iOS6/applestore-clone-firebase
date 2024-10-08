@@ -26,7 +26,7 @@ class ItemStore: ObservableObject, ItemStoreType {
             // userID 찍힘..
             print("userID: \(userID), itemId: \(item.itemId)")
             
-            try await db.collection("User").document("\(userID)").collection("Item").document("\(item.itemId)").setData([
+            try await db.collection("Item").document("\(item.itemId)").setData([
                 "name": item.name,
                 "category": item.category,
                 "color": item.color,
@@ -82,11 +82,10 @@ class ItemStore: ObservableObject, ItemStoreType {
             }
         }
     }
-    func loadProducts(userID: String) async {
+    func loadProducts() async {
         do{
             let db = Firestore.firestore()
-            let snapshots = try await db.collection("User").document(userID).collection("Item").getDocuments()
-            print("user ID : \(userID)")
+            let snapshots = try await db.collection("Item").getDocuments()
             
             var savedItems: [Item] = []
             
