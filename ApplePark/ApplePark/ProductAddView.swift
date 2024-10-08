@@ -23,7 +23,7 @@ struct ProductAddView: View {
                                                  description: "name데이터",
                                                  stockQuantity: 1200,
                                                  imageURL: "name데이터",
-                                                 color: "25,20,10/색깔이름",
+                                                 color: "name데이터",
                                                  isAvailable: true)
     
     var body: some View {
@@ -86,8 +86,7 @@ struct ProductAddView: View {
                                                                                 description: "name데이터",
                                                                                 stockQuantity: 1200,
                                                                                 imageURL: "name데이터",
-                                                                                color: "20,34,55/뭔지모르겠는색",
-                                                                                
+                                                                                color: "name데이터",
                                                                                 isAvailable: true), userID: authManager.userID)
                                     await itemStore.loadProducts()
                                 }
