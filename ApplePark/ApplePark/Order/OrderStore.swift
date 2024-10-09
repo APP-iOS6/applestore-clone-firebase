@@ -43,34 +43,34 @@ class OrderStore: ObservableObject {
         }
     }
     
-    func updateOrder(_ order: Order, for userID: String) async {
-        do {
-            let db = Firestore.firestore()
-            try await db.collection("User").document(userID).collection("Order").document("\(order.orderDate)").setData([
-                "trackingNumber": order.trackingNumber,
-                "orderDate": Timestamp(date: order.orderDate),
-                "shippingAddress": order.shippingAddress,
-                "phoneNumber": order.phoneNumber,
-                "productName": order.productName,
-                "imageURL": order.imageURL,
-                "color": order.color,
-                "itemId": order.itemId,
-                "hasAppleCarePlus": order.hasAppleCarePlus,
-                "quantity": order.quantity,
-                "unitPrice": order.unitPrice,
-                "bankName": order.bankName,
-                "accountNumber": order.accountNumber
-            ])
-            print("Document successfully written!")
-        } catch {
-            print("Error writing document: \(error)")
-        }
-        for (index, updateOrder) in orders.enumerated() {
-            if updateOrder.itemId == order.itemId {
-                orders[index] = order
-            }
-        }
-    }
+//    func updateOrder(_ order: Order, for userID: String) async {
+//        do {
+//            let db = Firestore.firestore()
+//            try await db.collection("User").document(userID).collection("Order").document("\(order.orderDate)").setData([
+//                "trackingNumber": order.trackingNumber,
+//                "orderDate": Timestamp(date: order.orderDate),
+//                "shippingAddress": order.shippingAddress,
+//                "phoneNumber": order.phoneNumber,
+//                "productName": order.productName,
+//                "imageURL": order.imageURL,
+//                "color": order.color,
+//                "itemId": order.itemId,
+//                "hasAppleCarePlus": order.hasAppleCarePlus,
+//                "quantity": order.quantity,
+//                "unitPrice": order.unitPrice,
+//                "bankName": order.bankName,
+//                "accountNumber": order.accountNumber
+//            ])
+//            print("Document successfully written!")
+//        } catch {
+//            print("Error writing document: \(error)")
+//        }
+//        for (index, updateOrder) in orders.enumerated() {
+//            if updateOrder.itemId == order.itemId {
+//                orders[index] = order
+//            }
+//        }
+//    }
     
     func loadOrder(userID: String) async {
         do {
@@ -122,6 +122,24 @@ class OrderStore: ObservableObject {
             print("Error loading orders: \(error)")
         }
     }
+    
+    func deleteOrder(_ order: Order, userID: String) async {
+        do {
+            let db = Firestore.firestore()
+            
+            // Firestore에서 해당 주문 삭제
+            try await db.collection("User").document(userID).collection("Order").document("\(order.orderDate)").delete()
+            print("Document successfully removed!")
+            
+            if let index = orders.firstIndex(where: { $0.orderDate == order.orderDate }) {
+                orders.remove(at: index)
+            }
+        } catch {
+            print("Error deleting document: \(error)")
+        }
+    }
+
+
 }
 
 
