@@ -50,8 +50,12 @@ struct ProductAddView: View {
                             LazyVGrid(columns: gridItem) {
                                 ForEach(itemStore.items, id: \.itemId) { item in
                                     Button(action: {
-                                        selectedItem = item
-                                        isShowEditSheet.toggle()
+                                        //MARK: 관리자만 편집 가능하게
+                                        if authManager.role == .admin {
+                                            print(authManager.role)
+                                            selectedItem = item
+                                            isShowEditSheet.toggle()
+                                        }
                                         Task {
                                             await itemStore.loadProducts()
                                         }
@@ -64,20 +68,25 @@ struct ProductAddView: View {
                                                     .fill(itemDetail?.itemId == item.itemId ? Color.orange.opacity(0.5) : Color.orange)
                                             )
                                             .overlay(
-                                                Button(action: {
-                                                    itemDetail = item
-                                                    isShowDeleteAlert.toggle()
-                                                    print("선택한 아이템Id: \(item.itemId)")
-                                                }) {
-                                                    Image(systemName: "trash")
-                                                }
-                                                .padding(), alignment: .topTrailing
+                                                Group {
+                                                    //MARK: 관리자만 삭제 가능
+                                                    if authManager.role == .admin {
+                                                        Button(action: {
+                                                            itemDetail = item
+                                                            isShowDeleteAlert.toggle()
+                                                            print("선택한 아이템Id: \(item.itemId)")
+                                                        }) {
+                                                            Image(systemName: "trash")
+                                                        }
+                                                        .padding()
+                                                    }
+                                                }, alignment: .topTrailing
                                             )
                                             .overlay(
                                                 NavigationLink(destination: OrderView(itemId: item.itemId, productName: item.name, imageURL: item.imageURL, unitPrice: item.price)) {
                                                     Image(systemName: "paperplane.circle.fill")
                                                 }
-                                                .padding(), alignment: .topLeading
+                                                    .padding(), alignment: .topLeading
                                             )
                                     }
                                 }
@@ -95,21 +104,24 @@ struct ProductAddView: View {
                     .padding(.horizontal, 20)
                     .navigationTitle("Product Add View")
                     .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button {
-                                Task {
-                                    await authManager.itemStore.addProduct(Item(name: "name데이터",
-                                                                                category: "name데이터",
-                                                                                price: 100,
-                                                                                description: "name데이터",
-                                                                                stockQuantity: 1200,
-                                                                                imageURL: "name데이터",
-                                                                                color: "name데이터",
-                                                                                isAvailable: true), userID: authManager.userID)
-                                    await itemStore.loadProducts()
+                        //MARK: 관리자만 추가 가능하게
+                        if authManager.role == .admin {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button {
+                                    Task {
+                                        await authManager.itemStore.addProduct(Item(name: "name데이터",
+                                                                                    category: "name데이터",
+                                                                                    price: 100,
+                                                                                    description: "name데이터",
+                                                                                    stockQuantity: 1200,
+                                                                                    imageURL: "name데이터",
+                                                                                    color: "name데이터",
+                                                                                    isAvailable: true), userID: authManager.userID)
+                                        await itemStore.loadProducts()
+                                    }
+                                } label: {
+                                    Image(systemName: "plus")
                                 }
-                            } label: {
-                                Image(systemName: "plus")
                             }
                         }
                     }

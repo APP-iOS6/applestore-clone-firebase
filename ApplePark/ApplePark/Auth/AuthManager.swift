@@ -24,6 +24,11 @@ enum AuthenticationFlow {
     case signUp
 }
 
+enum UserRole {
+    case admin      // 관리자
+    case consumer   // 소비자
+}
+
 @MainActor
 class AuthManager: ObservableObject {
     @Published var name: String = "unkown"
@@ -43,8 +48,10 @@ class AuthManager: ObservableObject {
     @Published var userID: String = ""
     @Published var itemStore: ItemStore = ItemStore()
     
+    @Published var role: UserRole = .consumer
+    
     init() {
-//        registerAuthStateHandler()
+        registerAuthStateHandler()
         
         $flow
             .combineLatest($email, $password, $confirmPassword)
@@ -66,7 +73,19 @@ class AuthManager: ObservableObject {
                 self.displayName = user?.displayName ?? ""
                 self.photoURL = user?.photoURL
                 self.email = user?.email ?? "" // 사용자 이메일 설정
+                
+                self.checkUserRole(email: self.email) // 역할 확인
             }
+        }
+    }
+    
+    //MARK: 관리자, 소비자 확인 함수
+    private func checkUserRole(email: String) {
+        let adminEmail = ["428bbell@gmail.com"] // 관리자 이메일 넣어야합니당
+        if adminEmail.contains(email) {
+            self.role = .admin
+        } else {
+            self.role = .consumer
         }
     }
     
@@ -96,7 +115,7 @@ extension AuthManager {
     func signInWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do {
-//            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+            //            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
             // 로그인 시 이메일 설정
             self.email = try await Auth.auth().signIn(withEmail: self.email, password: self.password).user.email ?? ""
             return true
@@ -112,7 +131,7 @@ extension AuthManager {
     func signUpWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do  {
-//            try await Auth.auth().createUser(withEmail: email, password: password)
+            //            try await Auth.auth().createUser(withEmail: email, password: password)
             self.email = try await Auth.auth().createUser(withEmail: email, password: password).user.email ?? ""
             return true
         }
@@ -163,7 +182,7 @@ extension AuthManager {
               let window = windowScene.windows.first,
               let rootViewController = window.rootViewController else {
             print("There is no root view controller!")
-        
+            
             return false
         }
         
