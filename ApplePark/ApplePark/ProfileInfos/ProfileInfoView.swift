@@ -27,9 +27,12 @@ struct ProfileInfoView: View {
                 }
             } else {
                 Text("최근 본 제품 없음.")
-                    .font(.body)
-                    .foregroundColor(.gray)
             }
+            
+            NavigationLink(destination: ProfileInfoAddView()) {
+                Text("프로필 수정하기")
+            }
+            .padding(.top)
         }
         .font(.title)
         .padding()

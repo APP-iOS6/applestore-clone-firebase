@@ -20,6 +20,7 @@
 		2C63F4A62CB4C4E300E242A4 /* ItemStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63F4A52CB4C4E300E242A4 /* ItemStoreType.swift */; };
 		2C63F4A82CB50C7700E242A4 /* ProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63F4A72CB50C7700E242A4 /* ProfileInfoView.swift */; };
 		2CB278912CB75D4E00DA0A1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CB278902CB75D4E00DA0A1F /* GoogleService-Info.plist */; };
+		7765B89A2CB78C2D0051B80D /* ProfileInfoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7765B8992CB78C2D0051B80D /* ProfileInfoAddView.swift */; };
 		77ED43542CB4DC5700987821 /* ProductEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ED43532CB4DC5700987821 /* ProductEditView.swift */; };
 		CE1838972CB3716500D4976B /* AppleParkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1838962CB3716500D4976B /* AppleParkApp.swift */; };
 		CE1838992CB3716500D4976B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1838982CB3716500D4976B /* LoginView.swift */; };
@@ -42,6 +43,7 @@
 		2C63F4A52CB4C4E300E242A4 /* ItemStoreType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStoreType.swift; sourceTree = "<group>"; };
 		2C63F4A72CB50C7700E242A4 /* ProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoView.swift; sourceTree = "<group>"; };
 		2CB278902CB75D4E00DA0A1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7765B8992CB78C2D0051B80D /* ProfileInfoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoAddView.swift; sourceTree = "<group>"; };
 		77ED43532CB4DC5700987821 /* ProductEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditView.swift; sourceTree = "<group>"; };
 		CE1838932CB3716500D4976B /* ApplePark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApplePark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1838962CB3716500D4976B /* AppleParkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleParkApp.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				2C63F4A72CB50C7700E242A4 /* ProfileInfoView.swift */,
+				7765B8992CB78C2D0051B80D /* ProfileInfoAddView.swift */,
 			);
 			path = ProfileInfos;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				EA9CE4F72CB3B19400ED5EE7 /* ProfileInfo.swift in Sources */,
 				2C373DCD2CB3AD54009481DE /* UserID.swift in Sources */,
 				CE1838992CB3716500D4976B /* LoginView.swift in Sources */,
+				7765B89A2CB78C2D0051B80D /* ProfileInfoAddView.swift in Sources */,
 				2C63F4A62CB4C4E300E242A4 /* ItemStoreType.swift in Sources */,
 				EAC01ED12CB507FB00BA5753 /* OrderView.swift in Sources */,
 				EAC01ED22CB507FB00BA5753 /* OrderStore.swift in Sources */,
