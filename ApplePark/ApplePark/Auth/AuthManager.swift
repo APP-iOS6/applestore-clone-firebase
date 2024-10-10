@@ -203,20 +203,19 @@ extension AuthManager {
     func updateUserProfile(email: String, recentlyViewedProducts: [String]) async {
             do {
                 let db = Firestore.firestore()
-                let docRef = db.collection("User").document(userID).collection("profileInfo").document("profileDoc")
+                let docRef = db.collection("User").document(email).collection("profileInfo").document("profileDoc")
 
                 try await docRef.setData([
                     "nickname": email,
                     "recentlyViewedProducts": recentlyViewedProducts,
                     "registrationDate": FieldValue.serverTimestamp()
-                ]) // merge: true를 사용하여 기존 필드를 유지하면서 업데이트
+                ])
 
-                // 성공적으로 업데이트된 후 profileInfo 업데이트
                 self.profileInfo.nickname = email
                 self.profileInfo.recentlyViewedProducts = recentlyViewedProducts
 
             } catch {
-                print("프로필 업데이트 중 오류 발생: \(error)")
+                print("\(error)")
             }
         }
     
