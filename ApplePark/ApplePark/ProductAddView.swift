@@ -103,28 +103,7 @@ struct ProductAddView: View {
                     }
                     .padding(.horizontal, 20)
                     .navigationTitle("Product Add View")
-                    .toolbar {
-                        //MARK: 관리자만 추가 가능하게
-                        if authManager.role == .admin {
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button {
-                                    Task {
-                                        await authManager.itemStore.addProduct(Item(name: "name데이터",
-                                                                                    category: "name데이터",
-                                                                                    price: 100,
-                                                                                    description: "name데이터",
-                                                                                    stockQuantity: 1200,
-                                                                                    imageURL: "name데이터",
-                                                                                    color: "name데이터",
-                                                                                    isAvailable: true), userID: authManager.userID)
-                                        await itemStore.loadProducts()
-                                    }
-                                } label: {
-                                    Image(systemName: "plus")
-                                }
-                            }
-                        }
-                    }
+                    
                     .alert(isPresented: $isShowDeleteAlert) {
                         Alert(title: Text("게시물 삭제"), message: Text("정말로 삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제")) {
                             if let itemToDelete = itemDetail {
@@ -139,23 +118,45 @@ struct ProductAddView: View {
                             itemDetail = nil // 취소할 때 선택한 아이템 초기화
                         })
                     }
-                    Button {
-                        authManager.signOut()
-                        isLogout = true
-                    } label: {
-                        Image(systemName: "rectangle.portrait.and.arrow.forward")
+                    //                    Button {
+                    //                        authManager.signOut()
+                    //                        isLogout = true
+                    //                    } label: {
+                    //                        Image(systemName: "rectangle.portrait.and.arrow.forward")
+                    //                    }
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Product")
                     }
-                }
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Product")
+                    
+                    ProfileInfoView()
+                        .tabItem {
+                            Image(systemName: "person.circle.fill")
+                            Text("Profile")
+                        }
+                }.toolbar {
+                    //MARK: 관리자만 추가 가능하게
+                    if authManager.role == .admin {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                Task {
+                                    await authManager.itemStore.addProduct(Item(name: "name데이터",
+                                                                                category: "name데이터",
+                                                                                price: 100,
+                                                                                description: "name데이터",
+                                                                                stockQuantity: 1200,
+                                                                                imageURL: "name데이터",
+                                                                                color: "name데이터",
+                                                                                isAvailable: true), userID: authManager.userID)
+                                    await itemStore.loadProducts()
+                                }
+                            } label: {
+                                Image(systemName: "plus")
+                            }
+                        }
+                    }
                 }
                 
-                ProfileInfoView()
-                    .tabItem {
-                        Image(systemName: "person.circle.fill")
-                        Text("Profile")
-                    }
             }
         }
     }

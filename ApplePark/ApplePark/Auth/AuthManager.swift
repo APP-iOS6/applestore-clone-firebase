@@ -84,7 +84,7 @@ class AuthManager: ObservableObject {
     
     //MARK: 관리자, 소비자 확인 함수
     private func checkUserRole(email: String) {
-        let adminEmail = ["428bbell@gmail.com"] // 관리자 이메일 넣어야합니당
+        let adminEmail = ["428bbell@gmail.com","tnswhdgkwk@gmail.com"] // 관리자 이메일 넣어야합니당
         if adminEmail.contains(email) {
             self.role = .admin
         } else {
