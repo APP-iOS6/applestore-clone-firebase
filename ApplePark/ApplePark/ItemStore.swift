@@ -123,7 +123,6 @@ class ItemStore: ObservableObject, ItemStoreType {
             let db = Firestore.firestore()
             
             try await db.collection("Item").document("\(item.itemId)").delete()
-            // 컬렉션에 있는 USER 안에 Item 안에 itemId를 삭제
             print("Document successfully removed!")
             
             
@@ -136,12 +135,13 @@ class ItemStore: ObservableObject, ItemStoreType {
     }
     
     func filterByCategory(category: String) {
-        if category == "전체" {
-            Task {
+        Task {
+            if category == "전체" {
                 await loadProducts()
+            } else {
+                await loadProducts()
+                self.items = self.items.filter { $0.category == category }
             }
-        } else {
-            self.items = self.items.filter { $0.category == category }
         }
     }
 }

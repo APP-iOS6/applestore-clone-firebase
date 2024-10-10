@@ -100,7 +100,7 @@ extension AuthManager {
     func signInWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do {
-            //            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+//            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
             // 로그인 시 이메일 설정
             self.email = try await Auth.auth().signIn(withEmail: self.email, password: self.password).user.email ?? ""
             return true
@@ -116,8 +116,8 @@ extension AuthManager {
     func signUpWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do  {
-            //            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
-            self.email = try await Auth.auth().signIn(withEmail: self.email, password: self.password).user.email ?? ""
+//            try await Auth.auth().createUser(withEmail: email, password: password)
+            self.email = try await Auth.auth().createUser(withEmail: email, password: password).user.email ?? ""
             return true
         }
         catch {
@@ -211,8 +211,8 @@ extension AuthManager {
             print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
             
             self.userID = firebaseUser.uid
-            self.email = firebaseUser.email ?? ""
-            
+
+            self.email = firebaseUser.email ?? ""  // 구글 로그인하면 이메일 설정
             await loadUserProfile(email: email)
             
             authenticationState = .authenticated

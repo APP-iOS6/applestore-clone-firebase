@@ -70,7 +70,7 @@ let sampleItems = [
 let sampleOrders = [
     Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 5),
-          nickname: "john_doe",
+//          nickname: "john_doe",
           shippingAddress: "서울특별시 강남구 테헤란로 123",
           phoneNumber: "010-1234-5678",
           productName: "아이폰 14",
@@ -85,7 +85,7 @@ let sampleOrders = [
     
     Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 10),
-          nickname: "jane_doe",
+//          nickname: "jane_doe",
           shippingAddress: "부산광역시 해운대구 우동 456",
           phoneNumber: "010-9876-5432",
           productName: "갤럭시 S23",
@@ -100,7 +100,7 @@ let sampleOrders = [
     
     Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 15),
-          nickname: "alice",
+//          nickname: "alice",
           shippingAddress: "인천광역시 남동구 구월동 789",
           phoneNumber: "010-1111-2222",
           productName: "LG OLED TV",
@@ -115,7 +115,7 @@ let sampleOrders = [
     
     Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 20),
-          nickname: "bob",
+//          nickname: "bob",
           shippingAddress: "대전광역시 유성구 봉명동 234",
           phoneNumber: "010-3333-4444",
           productName: "다이슨 무선 청소기",
@@ -130,7 +130,7 @@ let sampleOrders = [
     
     Order(trackingNumber: UUID().uuidString,
           orderDate: sampleDate(daysAgo: 25),
-          nickname: "charlie",
+//          nickname: "charlie",
           shippingAddress: "광주광역시 서구 화정동 123",
           phoneNumber: "010-5555-6666",
           productName: "삼성 노트북",
