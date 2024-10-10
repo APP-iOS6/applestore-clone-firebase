@@ -65,6 +65,7 @@ class AuthManager: ObservableObject {
                 self.authenticationState = user == nil ? .unauthenticated : .authenticated
                 self.displayName = user?.displayName ?? ""
                 self.photoURL = user?.photoURL
+                self.email = user?.email ?? "" // 사용자 이메일 설정
             }
         }
     }
@@ -95,7 +96,9 @@ extension AuthManager {
     func signInWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do {
-            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+//            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+            // 로그인 시 이메일 설정
+            self.email = try await Auth.auth().signIn(withEmail: self.email, password: self.password).user.email ?? ""
             return true
         }
         catch  {
@@ -109,7 +112,8 @@ extension AuthManager {
     func signUpWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do  {
-            try await Auth.auth().createUser(withEmail: email, password: password)
+//            try await Auth.auth().createUser(withEmail: email, password: password)
+            self.email = try await Auth.auth().createUser(withEmail: email, password: password).user.email ?? ""
             return true
         }
         catch {
@@ -123,6 +127,7 @@ extension AuthManager {
     func signOut() {
         do {
             try Auth.auth().signOut()
+            self.email = ""
         }
         catch {
             print(error)
@@ -177,6 +182,7 @@ extension AuthManager {
             print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
             
             self.userID = firebaseUser.uid
+            self.email = firebaseUser.email ?? ""  // 구글 로그인하면 이메일 설정
             authenticationState = .authenticated
             return true
         }

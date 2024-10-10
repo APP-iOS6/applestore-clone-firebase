@@ -11,7 +11,7 @@ import Foundation
 struct Order: Codable {
     var trackingNumber: String
     var orderDate: Date                // 주문 날짜
-    var nickname: String               // 닉네임
+//    var nickname: String               // 닉네임
     var shippingAddress: String        // 배송지
     var phoneNumber: String            // 전화번호
     var productName: String            // 상품명
