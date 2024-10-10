@@ -45,35 +45,6 @@ class OrderStore: ObservableObject {
         }
     }
     
-//    func updateOrder(_ order: Order, for userID: String) async {
-//        do {
-//            let db = Firestore.firestore()
-//            try await db.collection("User").document(userID).collection("Order").document("\(order.orderDate)").setData([
-//                "trackingNumber": order.trackingNumber,
-//                "orderDate": Timestamp(date: order.orderDate),
-//                "shippingAddress": order.shippingAddress,
-//                "phoneNumber": order.phoneNumber,
-//                "productName": order.productName,
-//                "imageURL": order.imageURL,
-//                "color": order.color,
-//                "itemId": order.itemId,
-//                "hasAppleCarePlus": order.hasAppleCarePlus,
-//                "quantity": order.quantity,
-//                "unitPrice": order.unitPrice,
-//                "bankName": order.bankName,
-//                "accountNumber": order.accountNumber
-//            ])
-//            print("Document successfully written!")
-//        } catch {
-//            print("Error writing document: \(error)")
-//        }
-//        for (index, updateOrder) in orders.enumerated() {
-//            if updateOrder.itemId == order.itemId {
-//                orders[index] = order
-//            }
-//        }
-//    }
-    
     func loadOrder(userID: String) async {
         do {
             let db = Firestore.firestore()
@@ -82,8 +53,6 @@ class OrderStore: ObservableObject {
             var savedOrders: [Order] = []
             
             for document in snapshots.documents {
-                let id: String = document.documentID
-                
                 let docData = document.data()
                 let trackingNumber: String = docData["trackingNumber"] as? String ?? ""
                 let orderDate: Date = (docData["orderDate"] as? Timestamp)?.dateValue() ?? Date()
@@ -142,8 +111,6 @@ class OrderStore: ObservableObject {
             print("Error deleting document: \(error)")
         }
     }
-
-
 }
 
 
