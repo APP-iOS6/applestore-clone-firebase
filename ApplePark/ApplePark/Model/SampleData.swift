@@ -147,7 +147,6 @@ let sampleOrders = [
 // 샘플 고객 데이터 생성
 let sampleCustomers =
     ProfileInfo(nickname: "john_doe",
-             email: "john@example.com",
              registrationDate: sampleDate(daysAgo: 30),
              recentlyViewedProducts: [sampleItems[0].itemId, sampleItems[1].itemId])
 

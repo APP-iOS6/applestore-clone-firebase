@@ -12,6 +12,7 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 import GoogleSignInSwift
+import FirebaseFirestore
 
 enum AuthenticationState {
     case unauthenticated
@@ -43,8 +44,11 @@ class AuthManager: ObservableObject {
     @Published var userID: String = ""
     @Published var itemStore: ItemStore = ItemStore()
     
+    @Published var profileInfo: ProfileInfo = ProfileInfo(nickname: "", registrationDate: Date(), recentlyViewedProducts: [])
+    
+    
     init() {
-//        registerAuthStateHandler()
+        //        registerAuthStateHandler()
         
         $flow
             .combineLatest($email, $password, $confirmPassword)
@@ -65,6 +69,7 @@ class AuthManager: ObservableObject {
                 self.authenticationState = user == nil ? .unauthenticated : .authenticated
                 self.displayName = user?.displayName ?? ""
                 self.photoURL = user?.photoURL
+                self.email = user?.email ?? "" // 사용자 이메일 설정
             }
         }
     }
@@ -95,7 +100,9 @@ extension AuthManager {
     func signInWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do {
-            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+            //            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+            // 로그인 시 이메일 설정
+            self.email = try await Auth.auth().signIn(withEmail: self.email, password: self.password).user.email ?? ""
             return true
         }
         catch  {
@@ -109,7 +116,8 @@ extension AuthManager {
     func signUpWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
         do  {
-            try await Auth.auth().createUser(withEmail: email, password: password)
+            //            try await Auth.auth().signIn(withEmail: self.email, password: self.password)
+            self.email = try await Auth.auth().signIn(withEmail: self.email, password: self.password).user.email ?? ""
             return true
         }
         catch {
@@ -123,6 +131,7 @@ extension AuthManager {
     func signOut() {
         do {
             try Auth.auth().signOut()
+            self.email = ""
         }
         catch {
             print(error)
@@ -147,6 +156,32 @@ enum AuthenticationError: Error {
 }
 
 extension AuthManager {
+
+    func loadUserProfile(email: String) async {
+        do {
+            let db = Firestore.firestore()
+            let snapshots = try await db.collection("User").document(email).collection("profileInfo").getDocuments()
+            
+            for document in snapshots.documents {
+                let docData = document.data()
+                let nickname: String = email
+                
+                let registrationTimestamp = docData["registrationDate"] as? Timestamp
+                let registrationDate: Date = registrationTimestamp?.dateValue() ?? Date()
+                
+                let recentlyViewedProducts: [String] = docData["recentlyViewedProducts"] as? [String] ?? []
+                
+                self.profileInfo = ProfileInfo(
+                    nickname: nickname,
+                    registrationDate: registrationDate,
+                    recentlyViewedProducts: recentlyViewedProducts
+                )
+            }
+        } catch{
+            print("\(error)")
+        }
+    }
+    
     func signInWithGoogle() async -> Bool {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             fatalError("No client ID found in Firebase configuration")
@@ -158,7 +193,6 @@ extension AuthManager {
               let window = windowScene.windows.first,
               let rootViewController = window.rootViewController else {
             print("There is no root view controller!")
-        
             return false
         }
         
@@ -177,6 +211,10 @@ extension AuthManager {
             print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
             
             self.userID = firebaseUser.uid
+            self.email = firebaseUser.email ?? ""
+            
+            await loadUserProfile(email: email)
+            
             authenticationState = .authenticated
             return true
         }
