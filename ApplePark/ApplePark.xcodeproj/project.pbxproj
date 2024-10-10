@@ -75,6 +75,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7765B8982CB759D00051B80D /* ProfileInfos */ = {
+			isa = PBXGroup;
+			children = (
+				2C63F4A72CB50C7700E242A4 /* ProfileInfoView.swift */,
+			);
+			path = ProfileInfos;
+			sourceTree = "<group>";
+		};
 		CE18388A2CB3716500D4976B = {
 			isa = PBXGroup;
 			children = (
@@ -103,7 +111,7 @@
 				2C63F4A52CB4C4E300E242A4 /* ItemStoreType.swift */,
 				CE1838982CB3716500D4976B /* LoginView.swift */,
 				2C373DCA2CB3A984009481DE /* ProductAddView.swift */,
-				2C63F4A72CB50C7700E242A4 /* ProfileInfoView.swift */,
+				7765B8982CB759D00051B80D /* ProfileInfos */,
 				77ED43532CB4DC5700987821 /* ProductEditView.swift */,
 				CE18389A2CB3716600D4976B /* Assets.xcassets */,
 				EAC01ED02CB507FB00BA5753 /* Order */,

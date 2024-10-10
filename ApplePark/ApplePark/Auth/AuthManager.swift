@@ -12,6 +12,7 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 import GoogleSignInSwift
+import FirebaseFirestore
 
 enum AuthenticationState {
     case unauthenticated
@@ -48,10 +49,12 @@ class AuthManager: ObservableObject {
     @Published var userID: String = ""
     @Published var itemStore: ItemStore = ItemStore()
     
+
+    @Published var profileInfo: ProfileInfo = ProfileInfo(nickname: "", registrationDate: Date(), recentlyViewedProducts: [])
     @Published var role: UserRole = .consumer
     
     init() {
-        registerAuthStateHandler()
+             registerAuthStateHandler()
         
         $flow
             .combineLatest($email, $password, $confirmPassword)
@@ -171,6 +174,32 @@ enum AuthenticationError: Error {
 }
 
 extension AuthManager {
+
+    func loadUserProfile(email: String) async {
+        do {
+            let db = Firestore.firestore()
+            let snapshots = try await db.collection("User").document(email).collection("profileInfo").getDocuments()
+            
+            for document in snapshots.documents {
+                let docData = document.data()
+                let nickname: String = email
+                
+                let registrationTimestamp = docData["registrationDate"] as? Timestamp
+                let registrationDate: Date = registrationTimestamp?.dateValue() ?? Date()
+                
+                let recentlyViewedProducts: [String] = docData["recentlyViewedProducts"] as? [String] ?? []
+                
+                self.profileInfo = ProfileInfo(
+                    nickname: nickname,
+                    registrationDate: registrationDate,
+                    recentlyViewedProducts: recentlyViewedProducts
+                )
+            }
+        } catch{
+            print("\(error)")
+        }
+    }
+    
     func signInWithGoogle() async -> Bool {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             fatalError("No client ID found in Firebase configuration")
@@ -182,7 +211,7 @@ extension AuthManager {
               let window = windowScene.windows.first,
               let rootViewController = window.rootViewController else {
             print("There is no root view controller!")
-            
+
             return false
         }
         
@@ -201,7 +230,10 @@ extension AuthManager {
             print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
             
             self.userID = firebaseUser.uid
+
             self.email = firebaseUser.email ?? ""  // 구글 로그인하면 이메일 설정
+            await loadUserProfile(email: email)
+            
             authenticationState = .authenticated
             return true
         }
