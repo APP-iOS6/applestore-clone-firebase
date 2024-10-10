@@ -30,8 +30,8 @@ struct ProfileInfoAddView: View {
         }
         .onAppear {
             newNickname = authManager.profileInfo.nickname
+            }
         }
-    }
 }
 
 #Preview {

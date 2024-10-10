@@ -15,6 +15,7 @@ struct ProductAddView: View {
     @State private var isShowEditSheet: Bool = false
     @State private var itemDetail: Item? // 삭제할 아이템
     @State private var isShowDeleteAlert: Bool = false // 알림창 상태 관리
+    
     @State private var selectedItem: Item = Item(name: "아이폰16pro",
                                                  category: "iPhone",
                                                  price: 100,

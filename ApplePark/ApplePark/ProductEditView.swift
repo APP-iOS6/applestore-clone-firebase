@@ -11,6 +11,7 @@ struct ProductEditView: View {
     @Binding var isShowSheet: Bool
     var itemStore: ItemStore
     @Binding var item: Item
+    
     @State private var newName: String = ""
     
     var body: some View {
