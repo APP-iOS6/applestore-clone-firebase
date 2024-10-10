@@ -10,6 +10,7 @@
 
 # Authentication 👥
 **구글 로그인으로 사용자 관리**
+
 ![image](https://github.com/user-attachments/assets/50cdff00-8126-4c4f-bb8d-b774bddb8260)
 
 
@@ -17,7 +18,7 @@
 
 **User / Item 컬렉션으로 데이터를 관리합니다.**
 
-## User 컬렉션
+## (1) User 컬렉션
 ```markdown
 📦 User (컬렉션)
 ┣ 📜 [user_email_1] (문서)
@@ -58,7 +59,7 @@
 ┃ ┃ ┃ ┣ 📜 unitPrice
 ```
 
-## Item 컬렉션
+## (2) Item 컬렉션
 ```markdown
 📦 Item (컬렉션)
 ┣ 📜 [itemid_1] (문서)
