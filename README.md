@@ -1,6 +1,7 @@
 # Firebase 🔥
 - Authentication
 - Firestore Database
+- 🖇️ https://console.firebase.google.com/project/applestore-clone-f9d07/overview?hl=ko
 
 # 개발자 💻
 | 👑     | 🧑🏻‍💻     | 👩🏻‍💻     |
