@@ -135,12 +135,13 @@ class ItemStore: ObservableObject, ItemStoreType {
     }
     
     func filterByCategory(category: String) {
-        if category == "전체" {
-            Task {
+        Task {
+            if category == "전체" {
                 await loadProducts()
+            } else {
+                await loadProducts()
+                self.items = self.items.filter { $0.category == category }
             }
-        } else {
-            self.items = self.items.filter { $0.category == category }
         }
     }
 }
