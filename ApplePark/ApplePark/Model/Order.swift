@@ -26,6 +26,9 @@ struct Order: Codable {
     var bankName: String               // 은행명
     var accountNumber: String          // 계좌번호
     
+    var isPay: Bool                    // 구매한 상품(True: 구매O, False: 구매X)
+    
+    
     // *수량 + 애플 케어가 true라면 기존 가격에서 10% 더함
     var totalPrice: Int {
         let total = (quantity * unitPrice) + ((quantity/10) * quantity)
