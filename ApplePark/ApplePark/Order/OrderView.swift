@@ -65,7 +65,8 @@ struct OrderView: View {
                     quantity: 3,
                     unitPrice: unitPrice,
                     bankName: "국민은행",
-                    accountNumber: "2194-1234-5678"
+                    accountNumber: "2194-1234-5678",
+                    isPay: false
                 )
                 
                 await orderStore.addOrder(newOrder, userID: authManager.email)

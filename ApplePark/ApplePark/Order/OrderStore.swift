@@ -34,7 +34,9 @@ class OrderStore: ObservableObject {
                 "quantity": order.quantity,
                 "unitPrice": order.unitPrice,
                 "bankName": order.bankName,
-                "accountNumber": order.accountNumber
+                "accountNumber": order.accountNumber,
+                
+                "isPay": order.isPay
             ])
             
             print("Document successfully written!")
@@ -96,6 +98,7 @@ class OrderStore: ObservableObject {
                 let unitPrice: Int = docData["unitPrice"] as? Int ?? 0
                 let bankName: String = docData["bankName"] as? String ?? ""
                 let accountNumber: String = docData["accountNumber"] as? String ?? ""
+                let isPay: Bool = docData["isPay"] as? Bool ?? false
                 
                 let order = Order(trackingNumber: trackingNumber,
                                   orderDate: orderDate,
@@ -109,7 +112,8 @@ class OrderStore: ObservableObject {
                                   quantity: quantity,
                                   unitPrice: unitPrice,
                                   bankName: bankName,
-                                  accountNumber: accountNumber)
+                                  accountNumber: accountNumber,
+                                  isPay: isPay)
                 
                 savedOrders.append(order)
                 print("Saved Orders: \(savedOrders)")
