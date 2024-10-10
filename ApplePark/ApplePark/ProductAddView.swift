@@ -100,30 +100,15 @@ struct ProductAddView: View {
                                 await itemStore.loadProducts()
                             }
                         }
+                        
+                        Button {
+                            authManager.signOut()
+                            isLogout = true
+                        } label: {
+                            Image(systemName: "rectangle.portrait.and.arrow.forward")
+                        }
                     }
-                    .padding(.horizontal, 20)
-                    .navigationTitle("Product Add View")
-                    
-                    .alert(isPresented: $isShowDeleteAlert) {
-                        Alert(title: Text("게시물 삭제"), message: Text("정말로 삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제")) {
-                            if let itemToDelete = itemDetail {
-                                Task {
-                                    await itemStore.deleteProduct(itemToDelete, userID: authManager.userID) // 삭제
-                                    await itemStore.loadProducts() // 아이템 목록 로드
-                                    print("삭제된 아이템Id: \(itemToDelete.itemId)") // 삭제된 아이템의 ID 확인
-                                    itemDetail = nil // 선택한 아이템 초기화
-                                }
-                            }
-                        }, secondaryButton: .cancel(Text("취소")) {
-                            itemDetail = nil // 취소할 때 선택한 아이템 초기화
-                        })
-                    }
-                    //                    Button {
-                    //                        authManager.signOut()
-                    //                        isLogout = true
-                    //                    } label: {
-                    //                        Image(systemName: "rectangle.portrait.and.arrow.forward")
-                    //                    }
+
                     .tabItem {
                         Image(systemName: "house")
                         Text("Product")
@@ -134,7 +119,10 @@ struct ProductAddView: View {
                             Image(systemName: "person.circle.fill")
                             Text("Profile")
                         }
-                }.toolbar {
+                }
+                .padding(.horizontal, 20)
+                .navigationTitle("Product Add View")
+                .toolbar {
                     //MARK: 관리자만 추가 가능하게
                     if authManager.role == .admin {
                         ToolbarItem(placement: .topBarTrailing) {
@@ -156,7 +144,20 @@ struct ProductAddView: View {
                         }
                     }
                 }
-                
+                .alert(isPresented: $isShowDeleteAlert) {
+                    Alert(title: Text("게시물 삭제"), message: Text("정말로 삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제")) {
+                        if let itemToDelete = itemDetail {
+                            Task {
+                                await itemStore.deleteProduct(itemToDelete, userID: authManager.userID) // 삭제
+                                await itemStore.loadProducts() // 아이템 목록 로드
+                                print("삭제된 아이템Id: \(itemToDelete.itemId)") // 삭제된 아이템의 ID 확인
+                                itemDetail = nil // 선택한 아이템 초기화
+                            }
+                        }
+                    }, secondaryButton: .cancel(Text("취소")) {
+                        itemDetail = nil // 취소할 때 선택한 아이템 초기화
+                    })
+                }
             }
         }
     }
