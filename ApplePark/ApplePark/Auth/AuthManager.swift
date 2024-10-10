@@ -174,7 +174,19 @@ enum AuthenticationError: Error {
 }
 
 extension AuthManager {
-
+    func createProfile(nickname: String) async {
+        do {
+            let profileInfo = ProfileInfo(nickname: "", registrationDate: Date(), recentlyViewedProducts: [])
+            let db = Firestore.firestore()
+            try await db.collection("User").document(email).collection("profileInfo").document("profileDoc").setData([
+                "nickname": nickname,
+                "recentlyViewedProducts": profileInfo.recentlyViewedProducts,
+                "registrationDate": profileInfo.registrationDate,
+            ])
+        } catch {
+            print(error)
+        }
+    }
     func loadUserProfile(email: String) async {
         do {
             let db = Firestore.firestore()
@@ -200,19 +212,21 @@ extension AuthManager {
         }
     }
     
-    func updateUserProfile(email: String, recentlyViewedProducts: [String]) async {
+    func updateUserProfile(nickname: String,recentlyViewedProducts: [String]) async {
             do {
                 let db = Firestore.firestore()
                 let docRef = db.collection("User").document(email).collection("profileInfo").document("profileDoc")
 
                 try await docRef.setData([
-                    "nickname": email,
+                    "nickname": nickname,
                     "recentlyViewedProducts": recentlyViewedProducts,
                     "registrationDate": FieldValue.serverTimestamp()
-                ])
+                    ]
+                )
 
                 self.profileInfo.nickname = email
                 self.profileInfo.recentlyViewedProducts = recentlyViewedProducts
+                print("profile edit!!")
 
             } catch {
                 print("\(error)")
@@ -252,7 +266,8 @@ extension AuthManager {
 
             self.email = firebaseUser.email ?? ""  // 구글 로그인하면 이메일 설정
             await loadUserProfile(email: email)
-            
+           
+            await createProfile(nickname: email)
             authenticationState = .authenticated
             return true
         }

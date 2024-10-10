@@ -10,23 +10,22 @@ import SwiftUI
 struct ProfileInfoAddView: View {
     @EnvironmentObject var authManager: AuthManager
     @State private var newNickname: String = ""
-    @State private var newRecentlyViewedProducts: [String] = [] 
+    @State private var newRecentlyViewedProducts: [String] = ["sdfasdfas","dfasdfasdfasdfa"]
     
     var body: some View {
         NavigationStack {
             VStack {
                 TextEditor(text: $newNickname)
+                    .background(.red)
                 Button(action: {
-                    authManager.profileInfo.nickname = newNickname
                     Task {
-                        await authManager.updateUserProfile(email: newNickname, recentlyViewedProducts: newRecentlyViewedProducts)
+                        await authManager.updateUserProfile(nickname: newNickname, recentlyViewedProducts: newRecentlyViewedProducts)
                     }
-                    newNickname = ""
                 }, label: {
                     Text("수정하기")
                 })
             }
-            .navigationTitle("Product Edit")
+            .navigationTitle("Profile Edit")
             
         }
         .onAppear {
@@ -37,4 +36,5 @@ struct ProfileInfoAddView: View {
 
 #Preview {
     ProfileInfoView()
+        .environmentObject(AuthManager())
 }

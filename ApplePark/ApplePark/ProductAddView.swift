@@ -100,62 +100,63 @@ struct ProductAddView: View {
                                 await itemStore.loadProducts()
                             }
                         }
+                        
+                        Button {
+                            authManager.signOut()
+                            isLogout = true
+                        } label: {
+                            Image(systemName: "rectangle.portrait.and.arrow.forward")
+                        }
                     }
-                    .padding(.horizontal, 20)
-                    .navigationTitle("Product Add View")
-                    .toolbar {
-                        //MARK: 관리자만 추가 가능하게
-                        if authManager.role == .admin {
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button {
-                                    Task {
-                                        await authManager.itemStore.addProduct(Item(name: "name데이터",
-                                                                                    category: "name데이터",
-                                                                                    price: 100,
-                                                                                    description: "name데이터",
-                                                                                    stockQuantity: 1200,
-                                                                                    imageURL: "name데이터",
-                                                                                    color: "name데이터",
-                                                                                    isAvailable: true), userID: authManager.userID)
-                                        await itemStore.loadProducts()
-                                    }
-                                } label: {
-                                    Image(systemName: "plus")
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Product")
+                    }
+                    
+                    ProfileInfoView()
+                        .tabItem {
+                            Image(systemName: "person.circle.fill")
+                            Text("Profile")
+                        }
+                }
+                .padding(.horizontal, 20)
+                .navigationTitle("Product Add View")
+                .toolbar {
+                    //MARK: 관리자만 추가 가능하게
+                    if authManager.role == .admin {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                Task {
+                                    await authManager.itemStore.addProduct(Item(name: "name데이터",
+                                                                                category: "name데이터",
+                                                                                price: 100,
+                                                                                description: "name데이터",
+                                                                                stockQuantity: 1200,
+                                                                                imageURL: "name데이터",
+                                                                                color: "name데이터",
+                                                                                isAvailable: true), userID: authManager.userID)
+                                    await itemStore.loadProducts()
                                 }
+                            } label: {
+                                Image(systemName: "plus")
                             }
                         }
                     }
-                    .alert(isPresented: $isShowDeleteAlert) {
-                        Alert(title: Text("게시물 삭제"), message: Text("정말로 삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제")) {
-                            if let itemToDelete = itemDetail {
-                                Task {
-                                    await itemStore.deleteProduct(itemToDelete, userID: authManager.userID) // 삭제
-                                    await itemStore.loadProducts() // 아이템 목록 로드
-                                    print("삭제된 아이템Id: \(itemToDelete.itemId)") // 삭제된 아이템의 ID 확인
-                                    itemDetail = nil // 선택한 아이템 초기화
-                                }
+                }
+                .alert(isPresented: $isShowDeleteAlert) {
+                    Alert(title: Text("게시물 삭제"), message: Text("정말로 삭제하시겠습니까?"), primaryButton: .destructive(Text("삭제")) {
+                        if let itemToDelete = itemDetail {
+                            Task {
+                                await itemStore.deleteProduct(itemToDelete, userID: authManager.userID) // 삭제
+                                await itemStore.loadProducts() // 아이템 목록 로드
+                                print("삭제된 아이템Id: \(itemToDelete.itemId)") // 삭제된 아이템의 ID 확인
+                                itemDetail = nil // 선택한 아이템 초기화
                             }
-                        }, secondaryButton: .cancel(Text("취소")) {
-                            itemDetail = nil // 취소할 때 선택한 아이템 초기화
-                        })
-                    }
-                    Button {
-                        authManager.signOut()
-                        isLogout = true
-                    } label: {
-                        Image(systemName: "rectangle.portrait.and.arrow.forward")
-                    }
+                        }
+                    }, secondaryButton: .cancel(Text("취소")) {
+                        itemDetail = nil // 취소할 때 선택한 아이템 초기화
+                    })
                 }
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Product")
-                }
-                
-                ProfileInfoView()
-                    .tabItem {
-                        Image(systemName: "person.circle.fill")
-                        Text("Profile")
-                    }
             }
         }
     }
