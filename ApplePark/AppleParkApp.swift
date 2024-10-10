@@ -21,12 +21,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct AppleParkApp: App {
     @StateObject private var authStore = AuthManager()
     @StateObject private var itemStore = ItemStore()
+    @StateObject private var orderStore = OrderStore()
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
             LoginView()
                 .environmentObject(authStore)
                 .environmentObject(itemStore)
+                .environmentObject(orderStore)
         }
     }
 }
